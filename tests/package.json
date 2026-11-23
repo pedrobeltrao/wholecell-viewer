@@ -1,0 +1,7 @@
+{
+  "name": "wholecell-viewer-tests",
+  "private": true,
+  "type": "module",
+  "description": "Headless checks of the viewer (registry, data loading, WGSL compilation, screenshots) with a local Chrome via playwright-core.",
+  "devDependencies": { "playwright-core": "^1.56.0", "esbuild": "^0.25.0" }
+}

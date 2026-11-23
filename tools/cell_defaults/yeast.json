@@ -1,0 +1,1081 @@
+{
+ "cell_id": "yeast",
+ "regions": {
+  "cytosol": {
+   "colour": "#7EA7D3",
+   "display_as": "cytosol"
+  },
+  "nucleoplasm": {
+   "colour": "#B993C9",
+   "display_as": "nucleoplasm"
+  },
+  "nucleolus": {
+   "colour": "#D39BC0",
+   "display_as": "nucleolus"
+  },
+  "ER_lumen": {
+   "colour": "#A3C48C",
+   "display_as": "ER lumen"
+  },
+  "vacuole": {
+   "colour": "#9FC7C0",
+   "display_as": "vacuole lumen"
+  },
+  "mito_matrix": {
+   "colour": "#D9946B",
+   "display_as": "mitochondrial matrix"
+  },
+  "mito_IMS": {
+   "colour": "#E8B48F",
+   "display_as": "mitochondrial IMS"
+  },
+  "golgi_endosome": {
+   "colour": "#B7C77E",
+   "display_as": "Golgi / endosome"
+  },
+  "peroxisome": {
+   "colour": "#C5B0E0",
+   "display_as": "peroxisome"
+  },
+  "cell_wall": {
+   "colour": "#9A8352",
+   "display_as": "cell wall"
+  },
+  "PM_peripheral": {
+   "colour": "#7EA7D3",
+   "display_as": "PM peripheral"
+  },
+  "NE_peripheral": {
+   "colour": "#8FA3D0",
+   "display_as": "NE peripheral"
+  },
+  "ER_peripheral": {
+   "colour": "#7EA7D3",
+   "display_as": "ER peripheral"
+  },
+  "LD_peripheral": {
+   "colour": "#7EA7D3",
+   "display_as": "lipid droplet surface"
+  },
+  "mem_PM": {
+   "colour": "#5FAE75",
+   "display_as": "plasma membrane"
+  },
+  "mem_ER": {
+   "colour": "#7DBE86",
+   "display_as": "ER membrane"
+  },
+  "mem_NE": {
+   "colour": "#6BB596",
+   "display_as": "nuclear envelope"
+  },
+  "mem_VAC": {
+   "colour": "#5BA8A0",
+   "display_as": "vacuolar membrane"
+  },
+  "mem_MITO_OM": {
+   "colour": "#C27C55",
+   "display_as": "mito outer membrane"
+  },
+  "mem_MITO_IM": {
+   "colour": "#B5653F",
+   "display_as": "mito inner membrane"
+  },
+  "mem_GOLGI": {
+   "colour": "#93B060",
+   "display_as": "Golgi membrane"
+  },
+  "mem_PEROX": {
+   "colour": "#A68BC9",
+   "display_as": "peroxisomal membrane"
+  },
+  "chromatin_nucleosome": {
+   "colour": "#F4B26A",
+   "display_as": "chromatin (nucleosome)"
+  },
+  "NE_pore_NPC": {
+   "colour": "#3E9C9A",
+   "display_as": "nuclear pore"
+  },
+  "VAC_peripheral": {
+   "colour": "#7EA7D3",
+   "display_as": "vacuole surface (cytosolic face)"
+  },
+  "GOLGI_peripheral": {
+   "colour": "#7EA7D3",
+   "display_as": "Golgi surface (cytosolic face)"
+  },
+  "PEROX_peripheral": {
+   "colour": "#7EA7D3",
+   "display_as": "peroxisome surface (cytosolic face)"
+  },
+  "polysome_ribosomes": {
+   "colour": "#EE9BC0",
+   "display_as": "polysome ribosomes"
+  },
+  "actin_cables": {
+   "colour": "#E0893A",
+   "display_as": "actin cables"
+  },
+  "microtubules": {
+   "colour": "#74C476",
+   "display_as": "microtubules"
+  },
+  "endocytic_actin_patches": {
+   "colour": "#D9534F",
+   "display_as": "endocytic actin patches"
+  },
+  "atp_synthase_dimers": {
+   "colour": "#B5653F",
+   "display_as": "ATP synthase dimers"
+  },
+  "eisosomes": {
+   "colour": "#3F8FCB",
+   "display_as": "eisosomes"
+  },
+  "cvt_complex": {
+   "colour": "#E0A43A",
+   "display_as": "Cvt complex"
+  },
+  "transcribing_pol2": {
+   "colour": "#9A72B8",
+   "display_as": "transcribing RNA polymerase II"
+  },
+  "nucleus_vacuole_junction": {
+   "colour": "#2E9C8F",
+   "display_as": "nucleus-vacuole junction"
+  },
+  "endocytic_coat_bar": {
+   "colour": "#9B4DCA",
+   "display_as": "endocytic coat (BAR)"
+  },
+  "kinetochores": {
+   "colour": "#6A4C9C",
+   "display_as": "kinetochores"
+  },
+  "licensed_origins": {
+   "colour": "#8E6CB0",
+   "display_as": "licensed origins (MCM)"
+  },
+  "chromatin_bound_proteins": {
+   "colour": "#B993C9",
+   "display_as": "chromatin-bound proteins"
+  },
+  "mrnp_ends": {
+   "colour": "#B0437A",
+   "display_as": "mRNP ends"
+  },
+  "spindle_pole_body": {
+   "colour": "#2E8B57",
+   "display_as": "spindle pole body"
+  },
+  "npc_transport_receptors": {
+   "colour": "#3E9C9A",
+   "display_as": "NPC transport receptors"
+  },
+  "rdna_transcription": {
+   "colour": "#9A72B8",
+   "display_as": "rDNA transcription (Pol I)"
+  }
+ },
+ "labels": {
+  "exterior": {
+   "display_name": "exterior",
+   "fill": "#F6F1E7"
+  },
+  "wall_mannan": {
+   "display_name": "cell wall (mannoprotein layer)",
+   "fill": "#F1E9D3"
+  },
+  "wall_glucan": {
+   "display_name": "cell wall (glucan/chitin layer)",
+   "fill": "#EEE3CC"
+  },
+  "cytosol": {
+   "display_name": "cytosol",
+   "fill": "#E4ECF5"
+  },
+  "er_lumen": {
+   "display_name": "cortical ER lumen",
+   "fill": "#E8F0DF"
+  },
+  "perinuclear_space": {
+   "display_name": "perinuclear space",
+   "fill": "#E8F0DF"
+  },
+  "nucleoplasm": {
+   "display_name": "nucleoplasm",
+   "fill": "#F1E7F1"
+  },
+  "nucleolus": {
+   "display_name": "nucleolus",
+   "fill": "#EBD9EA"
+  },
+  "vacuole_lumen": {
+   "display_name": "vacuole",
+   "fill": "#E3F0EE"
+  },
+  "mito_ims": {
+   "display_name": "mito intermembrane space",
+   "fill": "#F6E6DA"
+  },
+  "mito_matrix": {
+   "display_name": "mito matrix",
+   "fill": "#F2DCCB"
+  },
+  "lipid_droplet": {
+   "display_name": "lipid droplet",
+   "fill": "#F7EDC4"
+  },
+  "golgi_endosome_lumen": {
+   "display_name": "Golgi / endosome",
+   "fill": "#EEF1DC"
+  },
+  "peroxisome_matrix": {
+   "display_name": "peroxisome",
+   "fill": "#EEE8F6"
+  },
+  "nuclear_pore_channel": {
+   "display_name": "nuclear pore channel",
+   "fill": "#ECE8F2"
+  }
+ },
+ "membranes": {
+  "PM": {
+   "display_name": "plasma membrane",
+   "colour": "#5FAE75",
+   "colour_membranes_view": "#A9C3E3"
+  },
+  "ER": {
+   "display_name": "ER membrane",
+   "colour": "#7DBE86",
+   "colour_membranes_view": "#A3C48C"
+  },
+  "NE": {
+   "display_name": "nuclear envelope",
+   "colour": "#6BB596",
+   "colour_membranes_view": "#B993C9"
+  },
+  "VAC": {
+   "display_name": "vacuolar membrane",
+   "colour": "#5BA8A0",
+   "colour_membranes_view": "#9FC7C0"
+  },
+  "MITO_OM": {
+   "display_name": "mito outer membrane",
+   "colour": "#C27C55",
+   "colour_membranes_view": "#E8B48F"
+  },
+  "MITO_IM": {
+   "display_name": "mito inner membrane",
+   "colour": "#B5653F",
+   "colour_membranes_view": "#D9946B"
+  },
+  "GOLGI": {
+   "display_name": "Golgi/endosome membrane",
+   "colour": "#93B060",
+   "colour_membranes_view": "#B7C77E"
+  },
+  "PEROX": {
+   "display_name": "peroxisomal membrane",
+   "colour": "#A68BC9",
+   "colour_membranes_view": "#C5B0E0"
+  },
+  "LD": {
+   "display_name": "lipid droplet monolayer",
+   "colour": "#E9C46A",
+   "colour_membranes_view": "#E9C46A"
+  },
+  "CELL_OUTER": {
+   "display_name": "cell surface (outer cell wall)",
+   "colour": "#9A8352",
+   "colour_membranes_view": "#9A8352"
+  }
+ },
+ "special_colours": {
+  "cell_surface": "#D3DFEE",
+  "membrane_band": "#F8E3A0",
+  "backdrop": "#F6F1E7"
+ },
+ "classes": [
+  {
+   "key": "actin",
+   "name": "Actin",
+   "patterns": [
+    "F_actin",
+    "Arp23",
+    "CP_cap",
+    "TPM1_coil"
+   ],
+   "colour": "#E0893A",
+   "colour2": "#E0893A",
+   "own_switch": true,
+   "no_motion": true
+  },
+  {
+   "key": "microtubules",
+   "name": "Microtubules",
+   "patterns": [
+    "MT_tubulin",
+    "gTuRC_nuc",
+    "gTuRC_cyto"
+   ],
+   "colour": "#74C476",
+   "colour2": "#74C476",
+   "own_switch": true,
+   "no_motion": true
+  },
+  {
+   "key": "ribosomes",
+   "name": "Ribosomes",
+   "patterns": [
+    "ribosome_80S*",
+    "mitoribosome_74S_IM",
+    "CPX_1602_54S_mitochondrial_large_ribosoma",
+    "CPX_1603_37S_mitochondrial_small_ribosoma",
+    "preribo_*"
+   ],
+   "colour": "#8B88C9",
+   "colour2": null,
+   "own_switch": true,
+   "no_motion": false
+  },
+  {
+   "key": "tRNA",
+   "name": "tRNA",
+   "patterns": [
+    "tRNA*"
+   ],
+   "colour": "#8B88C9",
+   "colour2": null,
+   "own_switch": true,
+   "no_motion": false
+  },
+  {
+   "key": "nucleosomes",
+   "name": "Chromatin",
+   "patterns": [
+    "nucleosome"
+   ],
+   "colour": "#F4B26A",
+   "colour2": "#E07636",
+   "own_switch": true,
+   "no_motion": true
+  },
+  {
+   "key": "pores",
+   "name": "Nuclear pores",
+   "patterns": [
+    "NPC"
+   ],
+   "colour": "#3E9C9A",
+   "colour2": null,
+   "own_switch": true,
+   "no_motion": true
+  },
+  {
+   "key": "polymerases",
+   "name": "RNA polymerases",
+   "patterns": [
+    "PolI",
+    "PolII",
+    "PolIII"
+   ],
+   "colour": "#9A72B8",
+   "colour2": "#9A72B8",
+   "own_switch": true,
+   "no_motion": false
+  },
+  {
+   "key": "eisosomes",
+   "name": "Eisosomes",
+   "patterns": [
+    "Pil1_dimer",
+    "Lsp1_dimer"
+   ],
+   "colour": "#3F8FCB",
+   "colour2": "#3F8FCB",
+   "own_switch": true,
+   "no_motion": true
+  }
+ ],
+ "type_colours": [
+  {
+   "pattern": "ribosome_80S",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "tRNA",
+   "colour": "#E27FA8",
+   "colour2": "#E27FA8",
+   "cls": "tRNA"
+  },
+  {
+   "pattern": "nucleosome",
+   "colour": "#F4B26A",
+   "colour2": "#E07636",
+   "cls": "nucleosome"
+  },
+  {
+   "pattern": "NPC",
+   "colour": "#3E9C9A",
+   "colour2": null,
+   "cls": "NPC"
+  },
+  {
+   "pattern": "PolI",
+   "colour": "#9A72B8",
+   "colour2": "#9A72B8",
+   "cls": "polymerase"
+  },
+  {
+   "pattern": "PolII",
+   "colour": "#9A72B8",
+   "colour2": "#9A72B8",
+   "cls": "polymerase"
+  },
+  {
+   "pattern": "PolIII",
+   "colour": "#9A72B8",
+   "colour2": "#9A72B8",
+   "cls": "polymerase"
+  },
+  {
+   "pattern": "FAS",
+   "colour": "#8B88C9",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "proteasome_26S",
+   "colour": "#8B88C9",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "CCT",
+   "colour": "#8B88C9",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "F_actin",
+   "colour": "#E0893A",
+   "colour2": "#E0893A",
+   "cls": "actin"
+  },
+  {
+   "pattern": "Arp23",
+   "colour": "#D9534F",
+   "colour2": "#D9534F",
+   "cls": "actin"
+  },
+  {
+   "pattern": "TPM1_coil",
+   "colour": "#2FA4A0",
+   "colour2": "#2FA4A0",
+   "cls": "actin"
+  },
+  {
+   "pattern": "CP_cap",
+   "colour": "#8E6CB0",
+   "colour2": "#8E6CB0",
+   "cls": "actin"
+  },
+  {
+   "pattern": "MT_tubulin",
+   "colour": "#74C476",
+   "colour2": "#74C476",
+   "cls": "microtubule"
+  },
+  {
+   "pattern": "Pil1_dimer",
+   "colour": "#3F8FCB",
+   "colour2": "#3F8FCB",
+   "cls": "eisosome"
+  },
+  {
+   "pattern": "APE1_oligo",
+   "colour": "#E0A43A",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "AMS1_oligo",
+   "colour": "#B9792E",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "ATG19",
+   "colour": "#C0473F",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "Vac8_Nvj1",
+   "colour": "#2E9C8F",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "RVS161_RVS167_het",
+   "colour": "#9B4DCA",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "SLA2",
+   "colour": "#E3B23C",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "SLA1",
+   "colour": "#CFA040",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "END3",
+   "colour": "#BB8A35",
+   "colour2": null,
+   "cls": "complex"
+  },
+  {
+   "pattern": "Lsp1_dimer",
+   "colour": "#7FB6E0",
+   "colour2": "#7FB6E0",
+   "cls": "eisosome"
+  },
+  {
+   "pattern": "gTuRC_nuc",
+   "colour": "#2E8B57",
+   "colour2": "#2E8B57",
+   "cls": "microtubule"
+  },
+  {
+   "pattern": "gTuRC_cyto",
+   "colour": "#2E8B57",
+   "colour2": "#2E8B57",
+   "cls": "microtubule"
+  },
+  {
+   "pattern": "ribosome_80S_Ssh1",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_RAC",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_Sec61",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_Ssh1_decoding",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_Ssh1_transfer",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_Ssh1_translocation",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_Sec61_decoding",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_Sec61_transfer",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_Sec61_translocation",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_decoding",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_decoding_RAC",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_transfer",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_transfer_RAC",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_translocation",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "ribosome_80S_translocation_RAC",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "preribo_90S",
+   "colour": "#EF9A7E",
+   "colour2": "#C9558F",
+   "cls": "pre-ribosome"
+  },
+  {
+   "pattern": "preribo_60S_nucleolar",
+   "colour": "#EF9A7E",
+   "colour2": "#C9558F",
+   "cls": "pre-ribosome"
+  },
+  {
+   "pattern": "preribo_60S_nucleoplasm",
+   "colour": "#EF9A7E",
+   "colour2": "#C9558F",
+   "cls": "pre-ribosome"
+  },
+  {
+   "pattern": "preribo_60S_cytoplasm",
+   "colour": "#EF9A7E",
+   "colour2": "#C9558F",
+   "cls": "pre-ribosome"
+  },
+  {
+   "pattern": "preribo_40S",
+   "colour": "#EF9A7E",
+   "colour2": "#C9558F",
+   "cls": "pre-ribosome"
+  },
+  {
+   "pattern": "tRNA_*",
+   "colour": "#E27FA8",
+   "colour2": "#E27FA8",
+   "cls": "tRNA"
+  }
+ ],
+ "lipids": {
+  "PM": {
+   "PI": 10.68,
+   "PE": 12.25,
+   "PC": 10.14,
+   "PA": 2.35,
+   "PS": 20.28,
+   "sterol": 40.0,
+   "other": 4.16,
+   "CL": 0.12
+  },
+  "ER": {
+   "PI": 5.96,
+   "PE": 26.53,
+   "PC": 40.76,
+   "PA": 0.16,
+   "PS": 5.24,
+   "sterol": 20.63,
+   "other": 0.4,
+   "CL": 0.32
+  },
+  "NE": {
+   "PI": 9.25,
+   "PE": 16.48,
+   "PC": 27.33,
+   "PA": 1.35,
+   "PS": 3.62,
+   "sterol": 39.02,
+   "other": 2.64,
+   "CL": 0.31
+  },
+  "VAC": {
+   "PI": 15.51,
+   "PE": 16.44,
+   "PC": 39.41,
+   "PA": 1.78,
+   "PS": 3.73,
+   "sterol": 15.25,
+   "other": 6.53,
+   "CL": 1.36
+  },
+  "MITO_OM": {
+   "PI": 10.11,
+   "PE": 32.31,
+   "PC": 45.19,
+   "PA": 4.36,
+   "PS": 1.19,
+   "sterol": 0.99,
+   "other": 0.0,
+   "CL": 5.85
+  },
+  "MITO_IM": {
+   "PI": 12.27,
+   "PE": 18.18,
+   "PC": 29.09,
+   "PA": 1.14,
+   "PS": 2.88,
+   "sterol": 24.24,
+   "other": 0.0,
+   "CL": 12.2
+  },
+  "GOLGI": {
+   "PI": 10.91,
+   "PE": 12.74,
+   "PC": 20.0,
+   "PA": 0.69,
+   "PS": 7.37,
+   "sterol": 42.86,
+   "other": 5.03,
+   "CL": 0.4
+  },
+  "PEROX": {
+   "PI": 11.37,
+   "PE": 16.47,
+   "PC": 34.68,
+   "PA": 1.15,
+   "PS": 3.24,
+   "sterol": 28.06,
+   "other": 0.0,
+   "CL": 5.04
+  },
+  "LD": {
+   "PI": 7.51,
+   "PE": 33.43,
+   "PC": 51.35,
+   "PA": 0.2,
+   "PS": 6.61,
+   "sterol": 0.0,
+   "other": 0.5,
+   "CL": 0.4
+  },
+  "default": {
+   "PI": 5.96,
+   "PE": 26.53,
+   "PC": 40.76,
+   "PA": 0.16,
+   "PS": 5.24,
+   "sterol": 20.63,
+   "other": 0.4,
+   "CL": 0.32
+  },
+  "source": "Zinser et al. 1991 J Bacteriol 173:2026 Tables 4-5 (yeast viewer lipids.ts): phospholipid classes and ergosterol:phospholipid of isolated organelle membranes; PM sterol 40 mol% (assumption); PM leaflet asymmetry PS 100%, PE 80% cytoplasmic, sphingolipids (other) exoplasmic",
+  "pm_inner_share": {
+   "PS": 1.0,
+   "PE": 0.8,
+   "other": 0.0
+  },
+  "classes": [
+   "PI",
+   "PE",
+   "PC",
+   "PA",
+   "PS",
+   "sterol",
+   "other",
+   "CL"
+  ]
+ },
+ "geometry": {
+  "subsample": {
+   "cell": 1,
+   "vacuole": 1,
+   "nucleus": 1
+  },
+  "reband_nm": null,
+  "cristae_coarsen": 1,
+  "mesh_h_nm": 24,
+  "mesh_skip": [
+   "MITO_IM"
+  ],
+  "golgi_mesh_blob": false
+ },
+ "bookmarks": [
+  {
+   "kind": "whole_cell",
+   "name": "Whole cell",
+   "caption": "Section through the whole yeast cell model ({instances_m} million macromolecules), every one a real PDB or AlphaFold structure.",
+   "slab": 60
+  },
+  {
+   "kind": "membrane",
+   "name": "Cell wall",
+   "caption": "Mannoprotein brush (outer 35 nm) over the beta-glucan layer, plasma membrane below.",
+   "width": 260,
+   "slab": 40,
+   "membrane": "PM",
+   "view": "cross"
+  },
+  {
+   "kind": "membrane",
+   "name": "Plasma membrane (face-on)",
+   "caption": "Cytoplasmic face of the plasma membrane: Pma1 H+-ATPase hexamers among ~1,000 other membrane proteins; lipids generated around them.",
+   "width": 220,
+   "slab": 30,
+   "membrane": "PM",
+   "view": "face"
+  },
+  {
+   "kind": "membrane",
+   "name": "Cortical ER",
+   "caption": "Cortical ER sheet 27 nm beneath the plasma membrane, with Sec61 translocons and ER-bound ribosomes.",
+   "width": 320,
+   "slab": 40,
+   "membrane": "ER",
+   "view": "cross"
+  },
+  {
+   "kind": "label",
+   "name": "Cytoplasm",
+   "caption": "Crowded cytoplasm (~93 mg/mL): 80S ribosomes (pink), most of them threaded on mRNAs as polysomes, with glycolytic enzymes and tRNAs.",
+   "width": 160,
+   "slab": 30,
+   "label": "cytosol",
+   "depth": [
+    "PM",
+    "NE",
+    "VAC"
+   ]
+  },
+  {
+   "kind": "region",
+   "name": "Actin cable",
+   "caption": "Actin cable beneath the cortex: a bundle of F-actin filaments (orange; 9GO5 subunit and helix: 167 deg, 2.76 nm per subunit) coated by tropomyosin TPM1 (teal) along both strands, running past polysomes and cytosolic proteins.",
+   "width": 400,
+   "slab": 40,
+   "region": "actin_cables",
+   "in_labels": [
+    "cytosol"
+   ]
+  },
+  {
+   "kind": "region",
+   "name": "Spindle pole body",
+   "caption": "Microtubules (green; 8QV3 lattice, 13 protofilaments) grow from gamma-tubulin rings on the spindle pole body: a bouquet of short nuclear microtubules (16 reach the centromeres, Rabl configuration) and a few long cytoplasmic ones.",
+   "width": 900,
+   "slab": 60,
+   "region": "spindle_pole_body"
+  },
+  {
+   "kind": "region",
+   "name": "Cytoplasmic microtubule",
+   "caption": "A cytoplasmic microtubule, 25 nm wide and about a micrometre long, curving through the crowded cytoplasm.",
+   "width": 700,
+   "slab": 40,
+   "region": "microtubules",
+   "in_labels": [
+    "cytosol"
+   ]
+  },
+  {
+   "kind": "region",
+   "name": "Actin patch",
+   "caption": "Endocytic site: a plasma-membrane invagination (a tube about 40 nm wide that grows to ~100 nm before the vesicle pinches off; coat proteins Sla2, Sla1, End3 in gold at its tip, amphiphysin Rvs161/167 in violet on its tubular part) inside an actin patch: short actin filaments (orange) branching at 73 deg from Arp2/3 complexes (red; 8UXW junction) and capped by capping protein (purple; 8F8Q), barbed ends toward the membrane.",
+   "width": 360,
+   "slab": 50,
+   "region": "endocytic_actin_patches",
+   "in_labels": [
+    "cytosol"
+   ]
+  },
+  {
+   "kind": "region",
+   "name": "Eisosome",
+   "caption": "Eisosome: a plasma-membrane furrow about 50 nm deep and 300 nm long (MCC), its half-pipe bottom lined by a lattice of Pil1 (dark blue) and Lsp1 (light blue) BAR-domain dimers in their native arrangement (8QB7, 8QB8; Kefauver et al. 2024), amphipathic helices inserted into the inner leaflet. About 30 per cell.",
+   "width": 160,
+   "slab": 60,
+   "region": "eisosomes",
+   "view": "face"
+  },
+  {
+   "kind": "region",
+   "name": "Cvt complex",
+   "caption": "Cvt complex: precursor aminopeptidase I dodecamers (Ape1, amber) packed with alpha-mannosidase Ams1 (brown) and coated by the receptor Atg19 (red), waiting next to the vacuole to be wrapped into a Cvt vesicle (the cytoplasm-to-vacuole targeting pathway of growing cells).",
+   "width": 320,
+   "slab": 60,
+   "region": "cvt_complex",
+   "in_labels": [
+    "cytosol"
+   ]
+  },
+  {
+   "kind": "region",
+   "name": "Nucleus-vacuole junction",
+   "caption": "Nucleus-vacuole junction: where a vacuole lobe lies against the nucleus, Vac8 on the vacuolar membrane binds the outer-nuclear-membrane protein Nvj1 (teal; Vac8-Nvj1 structure 5XJG). Nvj1's membrane anchor and linker are not resolved and not drawn.",
+   "width": 300,
+   "slab": 40,
+   "region": "nucleus_vacuole_junction"
+  },
+  {
+   "kind": "prim",
+   "name": "Bud scar",
+   "caption": "Bud scar: the chitin ring a mother cell keeps from each division, about 1 um across, its rim (pale microfibrils, half the cell's chitin) raised above the mannoprotein surface. Shown in section through the ring; a daughter's birth scar has no chitin rim and is not modelled.",
+   "width": 1300,
+   "slab": 60,
+   "prim_class": "bud_scar",
+   "view": "face"
+  },
+  {
+   "kind": "pore",
+   "name": "Nuclear pore complex",
+   "caption": "NPC (PDB 7N9F) seated in a toroidal pore membrane joining the outer and inner nuclear membranes.",
+   "width": 260,
+   "slab": 50
+  },
+  {
+   "kind": "label",
+   "name": "Chromatin",
+   "caption": "Nucleoplasm: nucleosome chains (73,150 nucleosomes, linker DNA) with RNA polymerase II and nuclear proteins.",
+   "width": 200,
+   "slab": 40,
+   "label": "nucleoplasm",
+   "depth": [
+    "NE"
+   ]
+  },
+  {
+   "kind": "region",
+   "name": "Chromosome arms",
+   "caption": "Rabl configuration: the 16 centromeres held at the spindle pole body by kinetochore microtubules (green), each chromosome arm running from there to its telomere at the nuclear envelope; telomeres gather in 7 foci, longer arms reaching farther from the pole. Chromosome XII passes through the nucleolus (its rDNA). Shown as a thick slab, nucleosomes, microtubules and pores only.",
+   "width": 2600,
+   "slab": 500,
+   "show": [
+    "Nucleosomes",
+    "Microtubules",
+    "Nuclear pores",
+    "DNA"
+   ],
+   "region": "kinetochores"
+  },
+  {
+   "kind": "label",
+   "name": "Nucleolus",
+   "caption": "Nucleolar crescent: ribosomes being assembled (90S and pre-60S particles with their pre-rRNA), snoRNPs and Pol I, bordering the nucleoplasm.",
+   "width": 450,
+   "slab": 40,
+   "label": "nucleolus",
+   "depth": [
+    "NE"
+   ]
+  },
+  {
+   "kind": "region",
+   "name": "rRNA genes",
+   "caption": "Active rRNA genes in the nucleolus, other molecules hidden: RNA polymerase I (purple) every 45 nm along the nucleosome-free DNA (orange), nascent pre-rRNA (magenta) growing longer along each gene, and 90S pre-ribosomes (coral) on the 5' ends of uncleaved transcripts: the 'Christmas trees' of Miller spreads. Inactive repeats are nucleosomal.",
+   "width": 360,
+   "slab": 80,
+   "show": [
+    "DNA",
+    "pre-rRNA",
+    "RNA polymerases",
+    "Ribosomes",
+    "Nucleosomes"
+   ],
+   "region": "rdna_transcription"
+  },
+  {
+   "kind": "label",
+   "name": "Mitochondrion",
+   "caption": "Mitochondrial tubule: outer and inner membranes, lamellar cristae lined at their rims by rows of ATP synthase dimers (8F39 monomers in the 4B2Q dimer arrangement), mitoribosomes tethered to the inner membrane with their exit tunnels facing it, and the protein-dense matrix (~100 mg/mL).",
+   "width": 420,
+   "slab": 40,
+   "label": "mito_matrix",
+   "depth": [
+    "MITO_OM"
+   ]
+  },
+  {
+   "kind": "membrane",
+   "name": "Vacuole",
+   "caption": "Vacuolar membrane with V-ATPases. The lumen holds little protein (~4 mg/mL) but is filled with polyphosphate (purple; short chains, about 300 mM phosphate units, drawn procedurally), the cell's phosphate store made by the VTC complex. The vacuole is a cluster of lobes, as in cryo-FIB/SEM of log-phase cells.",
+   "width": 300,
+   "slab": 40,
+   "membrane": "VAC",
+   "view": "cross"
+  },
+  {
+   "kind": "label",
+   "name": "Lipid droplet",
+   "caption": "Lipid droplet: neutral-lipid core with a phospholipid monolayer and peripheral proteins, touching ER.",
+   "width": 560,
+   "slab": 40,
+   "label": "lipid_droplet",
+   "depth": [
+    "LD"
+   ]
+  },
+  {
+   "kind": "label",
+   "name": "Golgi / endosomes",
+   "caption": "Golgi cisternae and endosomes with their membrane and lumenal proteins.",
+   "width": 500,
+   "slab": 40,
+   "label": "golgi_endosome_lumen",
+   "depth": [
+    "GOLGI"
+   ]
+  }
+ ],
+ "model_doc": "{yeast_root}/MODEL.md",
+ "model_note": "This viewer shows the paper build {build_id} of the yeast cell, made with the unified wholecell pipeline (seed 0 of the X5 yeast model; geometry package analytic_x5_s0). The text below was written by G. Magnusson for the yeast viewer of build S (another seed, 25.2 M molecules); where numbers differ, the build's own files (cell.json, encode_meta.json) are authoritative.",
+ "attribution": {
+  "title": "Saccharomyces cerevisiae whole-cell structural model",
+  "authors": "G. Magnusson and the P. Beltrao lab (ETH Zurich)",
+  "sources": [
+   "Structures: RCSB Protein Data Bank entries (PDB, public domain / CC0) and AlphaFold DB models (CC BY 4.0)",
+   "Abundances: PaxDb integrated S. cerevisiae proteome; localisation: UniProt (CC BY 4.0) and GO / SGD annotations (CC BY 4.0)",
+   "Lipid compositions: Zinser et al. 1991 J Bacteriol 173:2026; cell-wall composition and other parameters as cited in MODEL.md",
+   "Model and original viewer: G. Magnusson (yeast_cell_viewer), used with permission for the joint repository"
+  ]
+ },
+ "features": {
+  "cell_wall": {
+   "labels": [
+    "wall_mannan",
+    "wall_glucan"
+   ],
+   "mannoprotein_region": "cell_wall",
+   "glucanPerNm3": 0.018147,
+   "mannanPerProtein": 1908.6,
+   "origin": "yeast_cell_viewer worker.ts wallP defaults"
+  },
+  "eisosomes": {
+   "prim_class": "pm_invagination"
+  },
+  "bud_scars": {
+   "prim_class": "bud_scar"
+  }
+ },
+ "types_meta": "{yeast_root}/data/library/types.json"
+}

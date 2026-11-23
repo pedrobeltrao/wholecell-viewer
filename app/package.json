@@ -1,0 +1,22 @@
+{
+  "name": "wholecell-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "One WebGPU viewer for the whole-cell molecular models (yeast, Jurkat T cell, future cells); cells are listed in cells.json and every cell-specific fact is read from the cell's exported data.",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit -p .",
+    "build": "tsc --noEmit -p . && vite build",
+    "golden": "node ../tools/golden_geometry.mjs"
+  },
+  "devDependencies": {
+    "@webgpu/types": "^0.1.74",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.5"
+  },
+  "dependencies": {
+    "molstar": "^4.18.0"
+  }
+}

@@ -1,0 +1,518 @@
+{
+ "cell_id": "jurkat",
+ "regions": {
+  "cytosol": {
+   "colour": "#9DB9DA",
+   "display_as": "cytosol"
+  },
+  "nucleoplasm": {
+   "colour": "#B993C9",
+   "display_as": "nucleoplasm"
+  },
+  "matrix": {
+   "colour": "#E39A5B",
+   "display_as": "mitochondrial matrix"
+  },
+  "ER_lumen": {
+   "colour": "#8DBF7A",
+   "display_as": "ER lumen"
+  },
+  "golgi_lumen": {
+   "colour": "#E6C653",
+   "display_as": "Golgi lumen"
+  },
+  "endo_lumen": {
+   "colour": "#A57F5A",
+   "display_as": "endo-lysosomal lumen"
+  },
+  "perinuclear": {
+   "colour": "#C9A6D6",
+   "display_as": "perinuclear space"
+  },
+  "PM": {
+   "colour": "#5B8FC7",
+   "display_as": "plasma membrane"
+  },
+  "NE": {
+   "colour": "#8E6BB0",
+   "display_as": "nuclear envelope"
+  },
+  "ER": {
+   "colour": "#5FAE75",
+   "display_as": "ER membrane"
+  },
+  "MITO_OM": {
+   "colour": "#C27C55",
+   "display_as": "mito outer membrane"
+  },
+  "MITO_IM": {
+   "colour": "#B5653F",
+   "display_as": "mito inner membrane"
+  },
+  "GOLGI": {
+   "colour": "#C9A93B",
+   "display_as": "Golgi membrane"
+  },
+  "ENDO": {
+   "colour": "#8A6440",
+   "display_as": "endo-lysosomal membrane"
+  },
+  "chromatin": {
+   "colour": "#9A72B8",
+   "display_as": "chromatin"
+  },
+  "polysomes": {
+   "colour": "#EE9BC0",
+   "display_as": "polysome ribosome"
+  },
+  "cytoskeleton": {
+   "colour": "#74C476",
+   "display_as": "cytoskeleton"
+  },
+  "npc": {
+   "colour": "#7F98B5",
+   "display_as": "nuclear pore (NPC and pore-proximal)"
+  },
+  "nucleolus": {
+   "colour": "#8A4F9E",
+   "display_as": "nucleolus"
+  },
+  "sh_PM_cyto": {
+   "colour": "#7FA8DA",
+   "display_as": "PM, cytosolic side (lipid-anchored)"
+  },
+  "sh_PM_exo": {
+   "colour": "#3F6FA8",
+   "display_as": "PM, outer side (lipid/GPI-anchored)"
+  },
+  "sh_PM_cortex": {
+   "colour": "#D9A26B",
+   "display_as": "cortex under the PM"
+  },
+  "sh_NE_lamina": {
+   "colour": "#6A4C9C",
+   "display_as": "nuclear lamina"
+  },
+  "sh_NE_nuc": {
+   "colour": "#A88BC6",
+   "display_as": "inner nuclear membrane, nucleoplasmic side (anchored)"
+  },
+  "sh_ER_cyto": {
+   "colour": "#82C493",
+   "display_as": "ER, cytosolic side (lipid-anchored)"
+  },
+  "sh_ER_lumen": {
+   "colour": "#5E9A55",
+   "display_as": "ER, lumenal side (anchored)"
+  },
+  "sh_GOLGI_cyto": {
+   "colour": "#DDC466",
+   "display_as": "Golgi, cytosolic side (lipid-anchored)"
+  },
+  "sh_GOLGI_lumen": {
+   "colour": "#B0922C",
+   "display_as": "Golgi, lumenal side (anchored)"
+  },
+  "sh_ENDO_cyto": {
+   "colour": "#B8936B",
+   "display_as": "endo-lysosome, cytosolic side (lipid-anchored)"
+  },
+  "sh_ENDO_lumen": {
+   "colour": "#76543A",
+   "display_as": "endo-lysosome, lumenal side (anchored)"
+  },
+  "sh_OM_cyto": {
+   "colour": "#D58C64",
+   "display_as": "mito outer membrane, cytosolic side (anchored)"
+  },
+  "speckle": {
+   "colour": "#C2408A",
+   "display_as": "nuclear speckle"
+  },
+  "sh_NPC": {
+   "colour": "#7F98B5",
+   "display_as": "nuclear pore, proximal shell"
+  },
+  "sh_PM_periph": {
+   "colour": "#7FA8DA",
+   "display_as": "PM, cytosolic side (peripheral)"
+  },
+  "sh_ENDO_periph": {
+   "colour": "#B8936B",
+   "display_as": "endo-lysosome, cytosolic side (peripheral)"
+  },
+  "sh_GOLGI_periph": {
+   "colour": "#DDC466",
+   "display_as": "Golgi, cytosolic side (peripheral)"
+  },
+  "mt_lattice": {
+   "colour": "#9DB9DA",
+   "display_as": "cytosol (microtubule lattice band)"
+  },
+  "mt_plus": {
+   "colour": "#9DB9DA",
+   "display_as": "cytosol (microtubule plus-end band)"
+  },
+  "pcm": {
+   "colour": "#9DB9DA",
+   "display_as": "cytosol (pericentriolar material)"
+  },
+  "vim_cage": {
+   "colour": "#9DB9DA",
+   "display_as": "cytosol (vimentin cage)"
+  },
+  "sh_NPC_fg": {
+   "colour": "#7F98B5",
+   "display_as": "nuclear pore channel (FG)"
+  },
+  "atp_synthase": {
+   "colour": "#B5653F",
+   "display_as": "ATP synthase dimers (inner membrane)"
+  },
+  "lamina": {
+   "colour": "#6A4C9C",
+   "display_as": "nuclear lamina (lattice)"
+  }
+ },
+ "labels": {
+  "exterior": {
+   "display_name": "exterior",
+   "fill": "#F6F1E7"
+  },
+  "cytosol": {
+   "display_name": "cytosol",
+   "fill": "#E4ECF5"
+  },
+  "perinuclear_space": {
+   "display_name": "perinuclear space",
+   "fill": "#EBD9EA"
+  },
+  "nucleoplasm": {
+   "display_name": "nucleoplasm",
+   "fill": "#F1E7F1"
+  },
+  "nucleolus": {
+   "display_name": "nucleolus",
+   "fill": "#D6B9DE"
+  },
+  "mito_ims": {
+   "display_name": "mito intermembrane space",
+   "fill": "#F6E6DA"
+  },
+  "mito_matrix": {
+   "display_name": "mito matrix",
+   "fill": "#F2DCCB"
+  },
+  "er_lumen": {
+   "display_name": "ER lumen",
+   "fill": "#E8F0DF"
+  },
+  "golgi_lumen": {
+   "display_name": "Golgi lumen",
+   "fill": "#F7EDC4"
+  },
+  "endolysosome_lumen": {
+   "display_name": "endo-lysosomal lumen",
+   "fill": "#EEE3D6"
+  },
+  "nuclear_pore_channel": {
+   "display_name": "nuclear pore channel",
+   "fill": "#ECE8F2"
+  },
+  "outside_imaged_volume": {
+   "display_name": "edge of the EM data (the imaged volume ends here; the cell continues)",
+   "fill": "#F6F1E7"
+  },
+  "nuclear_speck": {
+   "display_name": "nuclear speckle",
+   "fill": "#F2C9DF"
+  },
+  "golgi_intercisternal": {
+   "display_name": "Golgi intercisternal cytosol",
+   "fill": "#E4ECF5"
+  }
+ },
+ "membranes": {
+  "PM": {
+   "display_name": "plasma membrane",
+   "colour": "#7EA7D3",
+   "colour_membranes_view": "#A9C3E3"
+  },
+  "NE": {
+   "display_name": "nuclear envelope",
+   "colour": "#B993C9",
+   "colour_membranes_view": "#B993C9"
+  },
+  "ER": {
+   "display_name": "ER membrane",
+   "colour": "#5FAE75",
+   "colour_membranes_view": "#A3C48C"
+  },
+  "MITO_OM": {
+   "display_name": "mito outer membrane",
+   "colour": "#D9946B",
+   "colour_membranes_view": "#E8B48F"
+  },
+  "MITO_IM": {
+   "display_name": "mito inner membrane",
+   "colour": "#B5653F",
+   "colour_membranes_view": "#D9946B"
+  },
+  "GOLGI": {
+   "display_name": "Golgi membrane",
+   "colour": "#E6C653",
+   "colour_membranes_view": "#E9D27A"
+  },
+  "ENDO": {
+   "display_name": "endo-lysosomal membrane",
+   "colour": "#A57F5A",
+   "colour_membranes_view": "#B89676"
+  },
+  "CELL_OUTER": {
+   "display_name": "cell surface / edge of the EM data",
+   "colour": "#7EA7D3",
+   "colour_membranes_view": "#A9C3E3"
+  }
+ },
+ "special_colours": {
+  "open_face": "#8D939C",
+  "cell_surface": "#D3DFEE",
+  "membrane_band": "#F8E3A0",
+  "backdrop": "#F6F1E7"
+ },
+ "classes": [
+  {
+   "key": "actin",
+   "name": "Actin",
+   "patterns": [
+    "F_*"
+   ],
+   "colour": "#E0893A",
+   "colour2": "#E0893A",
+   "own_switch": true,
+   "no_motion": true
+  },
+  {
+   "key": "microtubules",
+   "name": "Microtubules",
+   "patterns": [
+    "MT_*"
+   ],
+   "colour": "#74C476",
+   "colour2": "#74C476",
+   "own_switch": true,
+   "no_motion": true
+  },
+  {
+   "key": "ribosomes",
+   "name": "Ribosomes",
+   "patterns": [
+    "RIBO*"
+   ],
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "own_switch": true,
+   "no_motion": false
+  },
+  {
+   "key": "nucleosomes",
+   "name": "Chromatin",
+   "patterns": [
+    "NUCLEOSOME",
+    "H1-*"
+   ],
+   "colour": "#A98BCB",
+   "colour2": "#7A4FA0",
+   "own_switch": true,
+   "no_motion": true
+  },
+  {
+   "key": "pores",
+   "name": "Nuclear pores",
+   "patterns": [
+    "NPC"
+   ],
+   "colour": "#7F98B5",
+   "colour2": null,
+   "own_switch": true,
+   "no_motion": true
+  }
+ ],
+ "type_colours": [
+  {
+   "pattern": "RIBO*",
+   "colour": "#EE9BC0",
+   "colour2": "#C9558F",
+   "cls": "ribosome"
+  },
+  {
+   "pattern": "NUCLEOSOME",
+   "colour": "#A98BCB",
+   "colour2": "#7A4FA0",
+   "cls": "nucleosome"
+  },
+  {
+   "pattern": "H1-*",
+   "colour": "#8E6CB0",
+   "colour2": "#8E6CB0",
+   "cls": "nucleosome"
+  },
+  {
+   "pattern": "NPC",
+   "colour": "#7F98B5",
+   "colour2": null,
+   "cls": "NPC"
+  },
+  {
+   "pattern": "MT_*",
+   "colour": "#74C476",
+   "colour2": "#74C476",
+   "cls": "microtubule"
+  },
+  {
+   "pattern": "F_*",
+   "colour": "#E0893A",
+   "colour2": "#E0893A",
+   "cls": "actin"
+  }
+ ],
+ "lipids": {
+  "default": {
+   "PI": 5,
+   "PE": 20,
+   "PC": 45,
+   "SM": 10,
+   "PS": 8,
+   "sterol": 0,
+   "other": 12
+  },
+  "source": "generic mammalian composition of the Jurkat viewer v7 (worker.ts LCUM); cholesterol not drawn",
+  "classes": [
+   "PI",
+   "PE",
+   "PC",
+   "SM",
+   "PS",
+   "sterol",
+   "other"
+  ]
+ },
+ "geometry": {
+  "subsample": {
+   "cell": 4,
+   "ne_mid": 4,
+   "nucleolus": 4,
+   "mito": 2,
+   "er": 2,
+   "golgi": 2,
+   "endo": 2
+  },
+  "golgi_cis_subsample": 1,
+  "reband_nm": 64,
+  "cristae_coarsen": 2,
+  "mesh_h_nm": 64,
+  "mesh_skip": [
+   "MITO_IM",
+   "CELL_OUTER"
+  ],
+  "golgi_mesh_blob": true
+ },
+ "bookmarks": [
+  {
+   "kind": "whole_cell",
+   "name": "Whole cell",
+   "caption": "Section through the whole Jurkat T cell model ({instances_m} million macromolecules). Molecules stream in around the view centre; further out, compartment colours.",
+   "slab": 60
+  },
+  {
+   "kind": "copy",
+   "source": "v7",
+   "name": "Plasma membrane",
+   "expect": [
+    "cytosol",
+    "exterior"
+   ]
+  },
+  {
+   "kind": "copy",
+   "source": "v7",
+   "name": "Cytoplasm",
+   "expect": [
+    "cytosol"
+   ]
+  },
+  {
+   "kind": "copy",
+   "source": "v7",
+   "name": "Nuclear envelope"
+  },
+  {
+   "kind": "pore",
+   "name": "Nuclear pore",
+   "near": "Nuclear envelope",
+   "caption": "Nuclear pore complex (PDB 7R5K scaffold) seen from the cytoplasm, set in a pore of the nuclear envelope.",
+   "width": 250,
+   "slab": 120
+  },
+  {
+   "kind": "copy",
+   "source": "v7",
+   "name": "Chromatin",
+   "expect": [
+    "nucleoplasm"
+   ]
+  },
+  {
+   "kind": "copy",
+   "source": "v7",
+   "name": "Mitochondrion"
+  },
+  {
+   "kind": "copy",
+   "source": "v7",
+   "name": "Endoplasmic reticulum"
+  },
+  {
+   "kind": "copy",
+   "source": "v7",
+   "name": "Nucleolus",
+   "expect": [
+    "nucleolus"
+   ]
+  },
+  {
+   "kind": "clip_plane",
+   "name": "Edge of the EM data",
+   "plane": "open_face",
+   "caption": "The flat bottom of the cell is the edge of the imaged EM volume, not a cell surface: the cell continues below it (about 3-4% of its volume was not imaged). There is no membrane on this face.",
+   "slab": 60
+  },
+  {
+   "kind": "copy",
+   "source": "v7",
+   "name": "Nuclear speckles",
+   "expect": [
+    "nuclear_speck"
+   ]
+  }
+ ],
+ "bookmarks_v7": "{data_root}/data/derived/web_full_v7/bookmarks.json",
+ "model_doc": "{data_root}/jurkat/viewer/MODEL.md",
+ "model_note": "This viewer shows the paper build {build_id} (alias v7: the reproduction of the Jurkat v7 model in the unified wholecell pipeline). Where numbers in the text below differ from the build, the build's own files (cell.json, encode_meta.json) are authoritative; the text was written for v7.",
+ "attribution": {
+  "title": "Jurkat T cell structural model",
+  "authors": "P. Beltrao lab (ETH Zurich) and G. Magnusson",
+  "sources": [
+   "Cell geometry: OpenOrganelle jrc_jurkat-1 (Janelia COSEM; FIB-SEM and segmentations), CC BY 4.0, doi:10.25378/janelia.13114211",
+   "Structures: RCSB Protein Data Bank entries (PDB, public domain / CC0) and AlphaFold DB models (CC BY 4.0)",
+   "Protein complexes: Complex Portal (EMBL-EBI), CC BY 4.0; interaction layer: STRING v12, CC BY 4.0",
+   "Sequence and protein names: UniProt, CC BY 4.0"
+  ]
+ },
+ "features": {
+  "open_face": {
+   "clip_plane": "open_face"
+  }
+ },
+ "uniprot_names": "{data_root}/data/reference/uniprot_human_full.tsv.gz"
+}

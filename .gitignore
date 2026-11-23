@@ -1,0 +1,13 @@
+node_modules/
+app/dist/
+app/public/molstar/
+app/public/cells.local.json
+tests/out/
+tests/*.log
+__pycache__/
+*.pyc
+# viewer data (tiles ~16 GB per cell) is deposited separately, never committed
+data/
+viewer_data/
+*.bin
+*.bin.gz
