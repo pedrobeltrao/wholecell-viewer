@@ -7,8 +7,7 @@ atomic models in Mol*. The app holds no list of cells and no cell-specific facts
 membranes, colours, the geometry fields and procedural shapes, molecule classes, bookmarks, the model description
 (MODEL.md) and licence/attribution are all read from each cell's exported data.
 
-Status: staging repository (prepared locally, not published). Data deposit URLs in `app/public/cells.json` are
-placeholders.
+Live viewer: https://pedrobeltrao.github.io/wholecell-viewer/ (data: https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data).
 
 ## Run locally
 
@@ -92,8 +91,9 @@ section map and picking; in WGSL for the cut-face fill. Both are ports of the pi
 Tiles are ~13 GB (Jurkat) and ~0.4 GB (yeast) per build and are never committed. Each build is deposited as one
 immutable folder `<cell id>/<build id>/` (Hugging Face dataset or Zenodo), and the registry's `data_base` points to it.
 The host must allow CORS and HTTP Range requests (Hugging Face `resolve/` URLs do). The app is a static site (GitHub
-Pages or any static host). Until the deposit exists, `app/public/cells.json` carries placeholder URLs
-(`DEPOSIT-ORG/DEPOSIT-REPO`), and local testing uses `cells.local.json` (written by `make_cells_json.py`, not committed).
+Pages or any static host). The published registry `app/public/cells.json` points at the Hugging Face dataset
+`pedrobeltrao/wholecell-viewer-data`; local testing uses `cells.local.json` (written by `make_cells_json.py`, not
+committed). The live site is the `gh-pages` branch (GitHub Pages), written by `tools/deploy_pages.sh` (build, copy Mol*, push `app/dist`).
 
 ## Tests
 

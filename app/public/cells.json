@@ -12,7 +12,7 @@
    },
    "cell_type": "haploid yeast (BY4741), G1",
    "state": "log phase, YPD",
-   "data_base": "https://huggingface.co/datasets/DEPOSIT-ORG/DEPOSIT-REPO/resolve/main/yeast/20261120-0a3ba79-s0-paperds/",
+   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/yeast/20261120-0a3ba79-s0-paperds/",
    "build": {
     "build_id": "20261120-0a3ba79-s0-paperds",
     "stamp": "BUILD_STAMP.json",
@@ -56,7 +56,7 @@
    },
    "cell_type": "T lymphocyte (leukaemia line E6-1)",
    "state": "resting, cell 1 of jrc_jurkat-1",
-   "data_base": "https://huggingface.co/datasets/DEPOSIT-ORG/DEPOSIT-REPO/resolve/main/jurkat/20261120-0a3ba79-s20261115-paper/",
+   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/jurkat/20261120-0a3ba79-s20261115-paper/",
    "build": {
     "build_id": "20261120-0a3ba79-s20261115-paper",
     "stamp": "BUILD_STAMP.json",
@@ -98,5 +98,5 @@
    }
   }
  ],
- "note": "Data deposit not yet published: data_base URLs are placeholders (DEPOSIT-ORG/DEPOSIT-REPO)."
+ "note": "Data: https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data (CC BY-NC 4.0)."
 }
