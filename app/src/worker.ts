@@ -21,6 +21,8 @@ let libTag: number | null = null;
 // lipid composition per membrane code: cumulative weights over the 7 classes (PI, PE, PC, SM, PS, sterol, other);
 // leaflets per membrane code ([-1, 1] bilayer, [1] monolayer)
 let LCUM: number[][] = [], LEAF: number[][] = [];
+// regions whose instances mask lipids (index.json lipid_mask_regions = the GHOST source set; else regions.json kind membrane)
+let MASKREG = new Uint8Array(256);
 const CACHE_MAX = 48;
 const INV_SQRT2 = 0.70710678;
 
@@ -187,6 +189,8 @@ async function init(msg: any) {
     LEAF[m.code] = lf === 'none' ? [] : (lf.startsWith('mono') || lf === '1') ? [1] : [-1, 1];
   }
   if (msg.beadQ !== undefined) beadQ = msg.beadQ;
+  MASKREG = new Uint8Array(256);
+  for (const r of msg.maskRegions ?? []) if (r >= 0 && r < 256) MASKREG[r] = 1;
 }
 let beadQ = 0.005;
 function loadBeads(): Promise<void> {
@@ -382,7 +386,12 @@ function genDetail(tileIdx: number, D: Decoded, R: Range) {
   if (D.tris.length && R.mode === 'slab' && beadXYZ) {
     const list: { w: Uint32Array; i: number; lo: number[]; id: number }[] = [];
     const nI = D.inst.length / 4, nG = D.ghost.length / 4;
-    for (let i = 0; i < nI; i++) if ((D.inst[4 * i] >>> 24) & 1) list.push({ w: D.inst, i, lo: D.lo, id: i });   // flag bit 0: near_membrane
+    // lipid maskers: flag bit 0 (near_membrane) or a lipid-mask region (membrane proteins, pores, ...); ghosts = the same
+    // set from the 26 neighbour tiles
+    for (let i = 0; i < nI; i++) {
+      const w0 = D.inst[4 * i];
+      if (((w0 >>> 24) & 1) || MASKREG[(w0 >>> 16) & 255]) list.push({ w: D.inst, i, lo: D.lo, id: i });
+    }
     for (let i = 0; i < nG; i++) list.push({ w: D.ghost, i, lo: D.lo, id: nI + i });
     const B = collectBeads(list);
     const hash = new BeadHash(B.xyz, B.owner, B.n, 1.0);

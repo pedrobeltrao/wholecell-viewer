@@ -5,13 +5,15 @@ the per-cell display facts in tools/cell_defaults/<cell>.json then move to the c
 `export.labels`, `export.membranes`, `export.classes`, `export.lipids`, `export.bookmarks`, `export.model_doc`,
 `export.attribution`). Data contract: README.md "Viewer data folder" and docs/reference/viewer_multi_cell.md.
 
-usage: python tools/export_viewer_extras.py --build <build_dir> --out <viewer_data_dir>
+usage: python tools/export_viewer_extras.py --build <build_dir> --out <viewer_data_dir> [--web <web_export_dir>]
            [--defaults tools/cell_defaults/<cell>.json] [--steps all|link,types_tiles,library,geometry,meshes,bookmarks,
            features,docs,thumb] [--g-budget N] [--workers 24]
 
 Steps (OUT = the cell's data_base):
   link         symlinks to the build's export (tiles/, version.json, encode_meta.json, encode_check.json,
-               MANIFEST.sha256); regions.json and cell.json are COPIED with display data / licence filled in
+               MANIFEST.sha256); regions.json and cell.json are COPIED with display data / licence filled in.
+               --web DIR: a re-export of the build's web tiles (python -m wholecell export --build B --step web --out DIR,
+               with MESH / POLY / GHOST sections) is linked instead, with relative links when DIR is inside OUT
   types_tiles  one pass over every tile (PALETTE + INST of each gzip member): exact instance counts per (species,
                region) and per block the tile holding most copies of each species / region -> types_tiles.bin
                (+ _work/tile_scan.npz, reused by library and bookmarks)
@@ -70,7 +72,8 @@ def sha256(path):
 class Ctx:
     def __init__(self, a):
         self.b = os.path.abspath(a.build); self.out = os.path.abspath(a.out); self.a = a
-        self.exp = os.path.join(self.b, "export"); self.web = os.path.join(self.exp, "web")
+        self.exp = os.path.join(self.b, "export")
+        self.web = os.path.abspath(a.web) if getattr(a, "web", None) else os.path.join(self.exp, "web")
         sys.path.insert(0, os.path.join(self.b, "_code"))
         self.cell = json.load(open(os.path.join(self.exp, "cell.json")))["entry"]
         self.cid = self.cell["id"]; self.bid = self.cell["build"]["build_id"]
@@ -113,7 +116,8 @@ def step_link(C):
         dst = os.path.join(out, name)
         if os.path.lexists(dst):
             os.remove(dst)
-        os.symlink(src, dst)
+        rel = os.path.relpath(src, out)
+        os.symlink(rel if not rel.startswith("..") else src, dst)     # relative inside OUT (folder can be moved / uploaded)
     # regions.json: the export's table with display data (colour, display_as) from the defaults where the config has none
     R = json.loads(json.dumps(C.regions))
     style = C.D.get("regions", {})
@@ -151,8 +155,9 @@ def _scan_shard(args):
         if pal is None or inst is None or not len(inst):
             continue
         c = np.bincount(inst[:, 0] & 0xFFFF, minlength=len(pal))
-        keys_all.append((pal[:, 0].astype(np.uint64) << np.uint64(16)) | (pal[:, 1] & 0xFFFF).astype(np.uint64))
-        cnt_all.append(c.astype(np.int64)); tiles_all.append(np.full(len(pal), ti, np.int64))
+        u = c > 0                  # palette entries used only by GHOST instances (appended after the tile's runs) count 0
+        keys_all.append(((pal[:, 0].astype(np.uint64) << np.uint64(16)) | (pal[:, 1] & 0xFFFF).astype(np.uint64))[u])
+        cnt_all.append(c[u].astype(np.int64)); tiles_all.append(np.full(int(u.sum()), ti, np.int64))
     if not keys_all:
         return np.zeros(0, np.uint64), np.zeros(0, np.int64), np.zeros(0, np.int64)
     return np.concatenate(keys_all), np.concatenate(cnt_all), np.concatenate(tiles_all)
@@ -826,13 +831,19 @@ def step_features(C):
     absent = [p for p in ("library/modes.json", "library/organisation.json", "dynamics.json", "overview")
               if not os.path.exists(os.path.join(C.out, p))]
     legend = [dict(label=c["name"], colour=c["colour"], kind="class") for c in D.get("classes", [])]
+    sw = C.index.get("sections_written", ["PALETTE", "INST"])
+    has_mesh = "MESH" in sw and any(r[C.index["tile_columns"].index("n_tri")] > 0 for r in C.index["tiles"])
+    has_poly = any(x.startswith("POLY") for x in sw)
+    missing = [x for x in C.index.get("not_written", [])]
+    notes = ("tiles carry " + ", ".join(sw) + (" (not written: " + ", ".join(missing) + ")" if missing else "")
+             + ("; procedural lipids on the tile membrane meshes" if has_mesh else "; no procedural lipids (no tile meshes)")
+             + ("; mRNA / DNA / extra polymer threads (POLY)" if has_poly else "; no polymer threads"))
     wjson(os.path.join(C.out, "features.json"), dict(
         schema="wholecell.viewer_features/1", cell_id=C.cid, build_id=C.bid, features=feats,
         classes=D.get("classes", []), type_colours=D.get("type_colours", []), legend=legend, lipids=D.get("lipids", {}),
-        special_colours=D.get("special_colours", {}), absent=absent, polylines=False, lipid_meshes=False,
-        ghosts=False, overview=False,
-        notes="tiles carry PALETTE + INST only (export not_written: GHOST, POLY, MESH, COLUMN, LOD1 overview): no procedural "
-              "lipids on tile meshes, no mRNA / linker DNA threads, no overview stand-ins"), indent=1)
+        special_colours=D.get("special_colours", {}), absent=absent, polylines=has_poly, lipid_meshes=has_mesh,
+        ghosts="GHOST" in sw, overview=False,
+        polyline_kinds=C.index.get("polyline_kinds", {}), notes=notes), indent=1)
     log(f"features: {list(feats)}; {len(D.get('classes', []))} classes; absent {absent}")
 
 
@@ -907,6 +918,7 @@ STEPS = ["link", "types_tiles", "library", "geometry", "meshes", "bookmarks", "f
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--build", required=True); ap.add_argument("--out", required=True)
+    ap.add_argument("--web", help="web export folder to link (default <build>/export/web)")
     ap.add_argument("--defaults"); ap.add_argument("--steps", default="all")
     ap.add_argument("--g-budget", type=int, default=16_000_000); ap.add_argument("--workers", type=int, default=24)
     a = ap.parse_args()
