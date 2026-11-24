@@ -132,7 +132,8 @@ async function boot() {
     R.device.queue.writeBuffer(R.typeFlags, 0, typeFlags);
     setLoading('Compiling shaders and starting tile streaming', 0.9);
     const nW = Math.max(2, Math.min(4, (navigator.hardwareConcurrency || 4) - 1));
-    T = new TileManager(idx, R, lib, ev, nW, { lipids: feat.lipids ?? {}, membranes: geo.membranes, beadQ: 0.005 });
+    const maskRegions = idx.lipidMask ?? regions.filter(r => r.kind === 'membrane').map(r => r.id);
+    T = new TileManager(idx, R, lib, ev, nW, { lipids: feat.lipids ?? {}, membranes: geo.membranes, beadQ: 0.005, maskRegions });
     T.onChange = () => { dirty = true; };
     dyn = new Dynamics(R, () => { dirty = true; }, toast);
     dyn.onRegion = (r) => { const i = bookmarks.findIndex(b => b.dynamics === r); if (i >= 0) { stopTour(); applyBookmark(i); } else dyn.show(r); };

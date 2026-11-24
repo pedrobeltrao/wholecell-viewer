@@ -263,6 +263,8 @@ export interface TileIndex {
   tileNm: number; qOrg: number; qRange: number; origin: [number, number, number];
   min: [number, number, number]; dims: [number, number, number]; blockTiles: number;
   libTag: number | null; buildTag: number | null; flagBits: { bit: number; name: string }[];
+  /** poly_q (nm) per POLY section kind (index.json polyline_kinds), and the lipid-mask region ids (GHOST source set) */
+  polyQ: Record<number, number>; lipidMask: number[] | null; sections: string[];
 }
 export async function loadTileIndex(): Promise<TileIndex> {
   const j = await fetchJson('tiles/index.json');
@@ -283,7 +285,10 @@ export async function loadTileIndex(): Promise<TileIndex> {
     labelMask: mk(Uint32Array, 'label_mask'), off: new Float64Array(n), shard: new Array(n), key: new Map(),
     tileNm: j.tile_nm, qOrg: j.q_org, qRange: j.q_range, origin: g.origin_nm, min, dims, blockTiles: j.block_tiles ?? 5,
     libTag: j.lib_tag ?? null, buildTag: j.build_tag ?? null, flagBits: j.flag_bits ?? [],
+    polyQ: {}, lipidMask: Array.isArray(j.lipid_mask_regions) ? j.lipid_mask_regions : null,
+    sections: j.sections_written ?? [],
   };
+  for (const [k, v] of Object.entries(j.polyline_kinds ?? {})) { const q = Number((v as any)?.poly_q); if (q > 0) idx.polyQ[Number(k)] = q; }
   const co = ci('off'), cs = ci('shard');
   for (let i = 0; i < n; i++) { idx.off[i] = T[i][co]; idx.shard[i] = 'tiles/' + T[i][cs]; }
   for (let i = 0; i < n; i++) idx.key.set(tkey(idx, idx.ix[i], idx.iy[i], idx.iz[i]), i);

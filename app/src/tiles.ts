@@ -86,7 +86,7 @@ export class TileManager {
       const wk: Worker = new TileWorker();
       wk.onmessage = (e) => this.onMessage(e.data);
       wk.postMessage({ cmd: 'init', base: ctx.base, ver: ctx.ver, split: ctx.split, tileNm: idx.tileNm, qOrg: idx.qOrg, qRange: idx.qRange,
-        origin: idx.origin, libTag: idx.libTag, rawBudgetMB: Math.round(rawBudgetMB() / nWorkers),
+        origin: idx.origin, libTag: idx.libTag, rawBudgetMB: Math.round(rawBudgetMB() / nWorkers), polyQ: idx.polyQ,
         types: lib.types.map(t => ({ bo: t.bo, nb: t.nb, br: t.br })), ...init });
       this.workers.push(wk);
     }
