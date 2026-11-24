@@ -12,11 +12,11 @@
    },
    "cell_type": "haploid yeast (BY4741), G1",
    "state": "log phase, YPD",
-   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/yeast/20261120-0a3ba79-s0-paperds/",
+   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/yeast/20261123-329246b-s0-v9/",
    "build": {
-    "build_id": "20261120-0a3ba79-s0-paperds",
+    "build_id": "20261123-329246b-s0-v9",
     "stamp": "BUILD_STAMP.json",
-    "stamp_sha256": "873d657ed77bc811a1c83823ac4ef4af9622ed04abdf953bdc005ac1e1fe48b0",
+    "stamp_sha256": "f983c483c60d020a944db4e7c197e35da4f5b40f160091aa3e11ef572379d9ab",
     "aliases": []
    },
    "files": {
@@ -34,8 +34,8 @@
    },
    "thumbnail": "thumb.png",
    "stats": {
-    "instances": 25628474,
-    "species": 6013,
+    "instances": 25844117,
+    "species": 6037,
     "volume_um3": 31.4
    },
    "licence": {
@@ -56,11 +56,11 @@
    },
    "cell_type": "T lymphocyte (leukaemia line E6-1)",
    "state": "resting, cell 1 of jrc_jurkat-1",
-   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/jurkat/20261120-0a3ba79-s20261115-paper/",
+   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/jurkat/20261123-faf17e1-s20261115-v9/",
    "build": {
-    "build_id": "20261120-0a3ba79-s20261115-paper",
+    "build_id": "20261123-faf17e1-s20261115-v9",
     "stamp": "BUILD_STAMP.json",
-    "stamp_sha256": "bebbb936d540f1205fd3c5beb95bf97cd3154e7ae35a07fc562a9f299073c00c",
+    "stamp_sha256": "8958cd9f68d73f04b21f5f75a2795198002d12eaffc173e352a4bb88d2066f5c",
     "aliases": [
      "v7"
     ]
@@ -80,8 +80,8 @@
    },
    "thumbnail": "thumb.png",
    "stats": {
-    "instances": 869673530,
-    "species": 16008,
+    "instances": 871806162,
+    "species": 16149,
     "volume_um3": 701.2
    },
    "licence": {
