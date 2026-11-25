@@ -105,6 +105,37 @@ committed). The live site is the `gh-pages` branch (GitHub Pages), written by `t
   (after `cd tests && npm install`): headless Chrome opens the start screen and every cell, compiles the WGSL, streams
   tiles, and saves screenshots and a report to `tests/out/`.
 
+## Changes
+
+### 2026-11-25: tile coverage when the view exceeds the molecule budget
+Molecules loaded only on a patch of the cell in two cases.
+- **Section over budget** (Detail low, which Auto picks on software adapters, or a thick slab). The Jurkat viewer
+  covered the rest with overview stand-ins (YCO1), which YCT2 exports do not have. On Jurkat v9, Detail low gave 57% of
+  the section around the view centre and compartment colours elsewhere.
+  - Now every tile in view is uploaded **thinned**: a fixed hash subset of its molecules (`worker.ts` `keepHash`).
+    The fraction is the largest of 75, 55, 40, 30, 22, 16 or 12% whose pool pages fit the budget (`tiles.ts` `THIN`).
+  - Zooming in restores full density, after the same 250 ms rest as re-clipping. Tiles are re-cut from the worker
+    caches.
+  - The HUD shows "N% of the molecules per tile".
+- **Pool pages of 256 instances** (were 1,024): about 2,000 molecules per section tile wasted about 20% of the pool.
+  With Detail medium the Jurkat section now fits with the 100 nm clip margin (it was 6 nm). With Detail low it fits at
+  55% density.
+- **Exterior view (no cut)**: the Jurkat v9 depth field is clamped at ±64 nm. The shell test (deeper than 147 nm =
+  interior) therefore never skipped a tile, and the view loaded 84,741 candidate tiles nearest the eye. A tile whose
+  samples all read the clamp value now counts as interior or exterior (`deepAt`, `outAt`): 12,204 candidates.
+  - The whole-cell exterior still exceeds the budget and the tile slots, so it loads nearest the eye, as in the Jurkat
+    viewer.
+- A lipid-detail reply for a tile that was re-clipped in the meantime no longer throws (`onDetail`).
+
+Jurkat v9, Whole cell view (Z plane 0, 60 nm slab), headless Chrome on the GPU (`--gpu compat`), local data and
+Hugging Face:
+
+| | before | after |
+|---|---|---|
+| Detail medium (Auto on a GPU) | 2,849 tiles, 5.96 M, section 100% | 2,849 tiles, 6.73 M (100 nm margin), 100% |
+| Detail low | 1,614 tiles, 3.53 M, section 57%, budget reached | 2,849 tiles, 3.28 M at 55%, section 100% |
+| No cut | 952 tiles of 84,741 candidates (interior patch) | 959 tiles of 12,204 (shell nearest the eye), budget reached |
+
 ## Licence
 
 Code: PolyForm Noncommercial License 1.0.0 (`LICENSE.md`).

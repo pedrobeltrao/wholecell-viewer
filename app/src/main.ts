@@ -994,7 +994,7 @@ function updateHUD() {
   const tt = T.totals(), s = R.stats;
   const fps = frameTimes.length > 3 ? 1000 / (frameTimes.reduce((a, b) => a + b) / frameTimes.length) : 0;
   const pend = T.pendingForView();
-  $('hud').innerHTML = `<b>${fmt(tt.inst)}</b> molecules in ${tt.tiles} tiles${pend ? ` · <span style="color:#FF9400">streaming ${pend}</span>` : ''}${T.starved ? ` · <span style="color:#FF9400">budget of ${fmt(tt.instCap)} molecules reached (thinner slab or higher Detail loads more)</span>` : ''}${T.whole && fs.cutOn && tt.secWant ? ` · section ${Math.round(100 * tt.secHave / tt.secWant)}% of ${tt.secWant} tiles` : ''}${tt.ovSpheres ? ` · ${fmt(tt.ovSpheres)} stand-ins` : ''}<br>
+  $('hud').innerHTML = `<b>${fmt(tt.inst)}</b> molecules in ${tt.tiles} tiles${pend ? ` · <span style="color:#FF9400">streaming ${pend}</span>` : ''}${T.starved ? ` · <span style="color:#FF9400">budget of ${fmt(tt.instCap)} molecules reached (thinner slab or higher Detail loads more)</span>` : ''}${T.whole && fs.cutOn && tt.secWant ? ` · section ${Math.round(100 * tt.secHave / tt.secWant)}% of ${tt.secWant} tiles` : ''}${tt.thin < 1 ? ` · <span style="color:#FF9400">${Math.round(100 * tt.thin)}% of the molecules per tile (budget; zoom in or raise Detail for all)</span>` : ''}${tt.ovSpheres ? ` · ${fmt(tt.ovSpheres)} stand-ins` : ''}<br>
     drawn: <b>${fmt(s.ninst)}</b> in view · ${fmt(s.l0 * 64)} residue beads (≤) · ${fmt(s.l1 * 16)} LOD1 · ${fmt(s.l2)} LOD2 · ${fmt(s.lip)} lipids · ${fmt(s.fre)} polymer beads<br>
     ${fps ? `${fps.toFixed(0)} fps · ` : ''}LOD bead ≥ ${fs.l0px.toFixed(1)} px · GPU pools ${R.gpuMemoryMB().toFixed(0)} MB · ${(T.bytesLoaded / 1048576).toFixed(0)} MB streamed${R.adapterInfo ? ' · ' + R.adapterInfo : ''}`;
   // scale bar

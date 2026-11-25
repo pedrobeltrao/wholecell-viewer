@@ -134,18 +134,28 @@ async function getDecoded(m: any, info?: { fetched: number }): Promise<Decoded> 
   return D;
 }
 
-// slab clip: keep what can be seen in [lo, hi] along n (instances by bounding sphere, beads by position, triangles)
-function clipTile(D: Decoded, c: { n: number[]; lo: number; hi: number } | null) {
-  if (!c) return { inst: D.inst.slice(), free: D.free.slice(), ib: D.tris.slice() };
-  const [nx, ny, nz] = c.n, lo = D.lo, w = D.inst, nI = w.length / 4;
+// thinned uploads (tiles.ts THIN, when the view's tiles exceed the molecule budget): instance i is kept when its hash
+// is below the keep fraction, so a sparser subset is contained in every denser one
+const keepHash = (i: number) => (Math.imul(i + 1, 0x9E3779B1) >>> 0) / 4294967296;
+// slab clip: keep what can be seen in [lo, hi] along n (instances by bounding sphere, beads by position, triangles);
+// thin < 1 keeps that fraction of the instances (polymer beads and triangles are kept whole)
+function clipTile(D: Decoded, c: { n: number[]; lo: number; hi: number } | null, thin = 1) {
+  if (!c && thin >= 1) return { inst: D.inst.slice(), free: D.free.slice(), ib: D.tris.slice() };
+  const [nx, ny, nz] = c ? c.n : [0, 0, 0], clo = c ? c.lo : -Infinity, chi = c ? c.hi : Infinity;
+  const lo = D.lo, w = D.inst, nI = w.length / 4;
   const keep = new Uint32Array(w.length); let k = 0;
   const ox = lo[0] - Q_ORG, oy = lo[1] - Q_ORG, oz = lo[2] - Q_ORG;
   for (let i = 0; i < nI; i++) {
+    if (thin < 1 && keepHash(i) >= thin) continue;
     const w1 = w[4 * i + 1], w2 = w[4 * i + 2];
-    const s = nx * (ox + (w1 & 0xFFFF) * QSTEP) + ny * (oy + (w1 >>> 16) * QSTEP) + nz * (oz + (w2 & 0xFFFF) * QSTEP);
-    const br = brArr[w[4 * i] & 0xFFFF];
-    if (s + br >= c.lo && s - br <= c.hi) { keep[4 * k] = w[4 * i]; keep[4 * k + 1] = w1; keep[4 * k + 2] = w2; keep[4 * k + 3] = w[4 * i + 3]; k++; }
+    if (c) {
+      const s = nx * (ox + (w1 & 0xFFFF) * QSTEP) + ny * (oy + (w1 >>> 16) * QSTEP) + nz * (oz + (w2 & 0xFFFF) * QSTEP);
+      const br = brArr[w[4 * i] & 0xFFFF];
+      if (s + br < clo || s - br > chi) continue;
+    }
+    keep[4 * k] = w[4 * i]; keep[4 * k + 1] = w1; keep[4 * k + 2] = w2; keep[4 * k + 3] = w[4 * i + 3]; k++;
   }
+  if (!c) return { inst: keep.slice(0, 4 * k), free: D.free.slice(), ib: D.tris.slice() };
   const F = D.free, nF = F.length / 4, fo = new Float32Array(F.length); let kf = 0;
   for (let i = 0; i < nF; i++) {
     const s = nx * F[4 * i] + ny * F[4 * i + 1] + nz * F[4 * i + 2];
@@ -457,8 +467,8 @@ self.onmessage = async (ev: MessageEvent) => {
         vb[8 * i] = T.verts[3 * i]; vb[8 * i + 1] = T.verts[3 * i + 1]; vb[8 * i + 2] = T.verts[3 * i + 2]; vbu[8 * i + 3] = T.vmem[i];
         vb[8 * i + 4] = T.normals[3 * i]; vb[8 * i + 5] = T.normals[3 * i + 1]; vb[8 * i + 6] = T.normals[3 * i + 2];
       }
-      const C = clipTile(T, m.clip ?? null);
-      (self as any).postMessage({ cmd: 'loaded', idx: m.idx, inst: C.inst, free: C.free, vb, ib: C.ib, lo: T.lo, clip: m.clip ?? null, nFull: T.inst.length / 4, fetched: info.fetched },
+      const C = clipTile(T, m.clip ?? null, m.thin ?? 1);
+      (self as any).postMessage({ cmd: 'loaded', idx: m.idx, inst: C.inst, free: C.free, vb, ib: C.ib, lo: T.lo, clip: m.clip ?? null, thin: m.thin ?? 1, nFull: T.inst.length / 4, fetched: info.fetched },
         [C.inst.buffer, C.free.buffer, vb.buffer, C.ib.buffer]);
     } else if (m.cmd === 'detail') {
       const D = await getDecoded(m);
