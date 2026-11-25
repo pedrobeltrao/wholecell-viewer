@@ -7,7 +7,7 @@
 // Reversed-Z infinite perspective (depth 1 = near, 0 = infinitely far). Cut plane s(p) = dot(n,p) - d;
 // content with s >= 0 is kept (camera looks along +n in section views).
 
-export const PAGE = 1024;      // instances per pool page
+export const PAGE = 256;       // instances per pool page (whole-cell sections: ~2,000 per tile, so 1,024 wasted ~20% of the pool)
 export const SPAGE = 4096;     // lipids / free spheres per pool page
 
 const COMMON = /* wgsl */ `

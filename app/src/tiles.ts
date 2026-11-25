@@ -21,22 +21,30 @@ const SHELL_DEPTH = 60;
 // The margin is the largest of CLIP_MS whose estimated section total fits the budget (a 200 nm margin would triple
 // a 60 nm section).
 const CLIP_MS = [100, 60, 30, 15, 6], RECLIP_MS = 250;
+// when even the narrowest margin (or, without a cut, the visible shell) exceeds the budget, every tile of the view is
+// uploaded thinned to the largest of THIN (fraction of its molecules, worker.ts keepHash) whose estimate fits, so the
+// whole section shows molecules at a lower density instead of a full-density patch around the view centre (the YCT2
+// exports have no overview stand-ins). Below the smallest fraction the view centre goes first, as before.
+const THIN = [1, 0.75, 0.55, 0.4, 0.3, 0.22, 0.16, 0.12];
 type Clip = { n: V3; lo: number; hi: number; d: number; slab: number } | null;
 
 export class PageAlloc {
   used: Uint8Array; n: number; count = 0; high = 0;
+  first = 0;                                          // no free page below this index
   constructor(n: number) { this.n = n; this.used = new Uint8Array(n); }
   alloc(k: number): number[] | null {
     if (k <= 0) return [];
     if (this.n - this.count < k) return null;
     const out: number[] = [];
-    for (let i = 0; i < this.n && out.length < k; i++) if (!this.used[i]) { this.used[i] = 1; out.push(i); }
+    let i = this.first;
+    for (; i < this.n && out.length < k; i++) if (!this.used[i]) { this.used[i] = 1; out.push(i); }
+    this.first = i;
     this.count += k;
     this.high = Math.max(this.high, out[out.length - 1] + 1);
     return out;
   }
   free(p: number[]) {
-    for (const i of p) { if (this.used[i]) { this.used[i] = 0; this.count--; } }
+    for (const i of p) { if (this.used[i]) { this.used[i] = 0; this.count--; if (i < this.first) this.first = i; } }
     while (this.high > 0 && !this.used[this.high - 1]) this.high--;
   }
   get freeCount() { return this.n - this.count; }
@@ -49,6 +57,7 @@ export interface LoadedTile {
   det: null | { n: V3; a: number; b: number; shell: boolean }; detPending: boolean; underMesh: boolean;
   baseFreeMissing: boolean;
   clip: Clip; reclip: boolean; nFull: number;          // range the upload was clipped to (null: whole tile)
+  thin: number;                                       // fraction of the tile's molecules uploaded (THIN)
 }
 
 export class TileManager {
@@ -63,6 +72,7 @@ export class TileManager {
   desired: number[] = []; desiredSet = new Set<number>();
   inflight = 0; maxInflight = 12;
   clipNow: Clip = null; planeKey = ''; planeT = 0;     // whole-cell cut: current clip range, last plane change
+  thinNow = 1;                                        // keep fraction of the current view (THIN; 1 = every molecule)
   secWant = 0; secHave = 0;                            // tiles meeting the section / of those with molecules loaded
   detInflight = 0; maxDetInflight = 3;
   frameNo = 0;
@@ -72,6 +82,7 @@ export class TileManager {
   detailEnabled = true;
   lastLoadErr = '';
   shellRange: Float32Array | null = null;
+  deepAt = SHELL_DEPTH; outAt = -MOL_MARGIN;           // exterior view: tiles deeper / further out than this are skipped
   whole = true;                                       // budgeted, centre-first streaming (always, for YCT2 exports)
 
   constructor(idx: TileIndex, r: Renderer, lib: Library, ev: GeomEval, nWorkers: number, init: any) {
@@ -98,6 +109,7 @@ export class TileManager {
     const m: any = { idx: i, ix: this.idx.ix[i], iy: this.idx.iy[i], iz: this.idx.iz[i], nVert: this.idx.nVert[i], nTri: this.idx.nTri[i],
       shard: { path: this.idx.shard[i], off: this.idx.off[i], n: this.idx.gz[i] } };
     if (this.clipNow) m.clip = this.clipNow;
+    if (this.thinNow < 1) m.thin = this.thinNow;
     return m;
   }
   /** worker of tile i: by block shard (one worker resolves and caches each shard) */
@@ -108,6 +120,7 @@ export class TileManager {
   }
   /** the loaded upload of t holds everything the current view needs */
   covered(t: LoadedTile) {
+    if (Math.abs(t.thin - this.thinNow) > 1e-6) return false;
     const c = this.clipNow;
     if (!c) return t.clip === null;
     if (!t.clip) return true;                           // whole tile (loaded without a cut): covers any slab
@@ -115,11 +128,11 @@ export class TileManager {
     return n[0] * c.n[0] + n[1] * c.n[1] + n[2] * c.n[2] > 0.99995 && t.clip.lo <= d + 0.5 && t.clip.hi >= e - 0.5;
   }
   /** instances tile i will occupy: the loaded count when current, else the slab share of its full count */
-  cost(i: number, c: Clip = this.clipNow) {
+  cost(i: number, c: Clip = this.clipNow, thin = this.thinNow) {
     const t = this.loaded.get(i);
-    if (t && this.covered(t)) return t.nInst;
-    const N = this.idx.nInst[i];
-    if (!c) return N;
+    if (t && thin === this.thinNow && this.covered(t)) return t.nInst;
+    const N = this.idx.nInst[i] * thin;
+    if (!c) return Math.ceil(N);
     const ctr = this.tileCenter(i), s = dot(c.n, ctr), h = this.TILE / 2 * (Math.abs(c.n[0]) + Math.abs(c.n[1]) + Math.abs(c.n[2]));
     const ov = Math.min(c.hi + 10, s + h) - Math.max(c.lo - 10, s - h);
     return Math.ceil(N * Math.max(0, Math.min(1, ov / (2 * h))));
@@ -146,7 +159,6 @@ export class TileManager {
     this.clipNow = this.whole && cutOn ? mkClip(CLIP_MS[0]) : null;
     const pk = cutOn ? `${plane.join(',')},${slab}` : 'off', now = performance.now();
     if (pk !== this.planeKey) { this.planeKey = pk; this.planeT = now; }
-    const settled = now - this.planeT > RECLIP_MS;
     const ext = this.TILE / 2 * (Math.abs(nn[0]) + Math.abs(nn[1]) + Math.abs(nn[2]));
     const cand: { i: number; d: number }[] = [];
     for (let i = 0; i < n; i++) {
@@ -161,9 +173,9 @@ export class TileManager {
         if (s + ext + MOL_MARGIN < 0 || s - ext - MOL_MARGIN > slab) continue;
       } else {
         // samples 100 nm apart: every point of the tile is within 87 nm of one (the depth field is clamped
-        // about 180 nm inside the surface, so the tile centre alone cannot tell the shell from the interior)
-        const sr = this.tileShellRange(), hs = this.HALF_DIAG / 2;
-        if (sr[5 * i] > SHELL_DEPTH + hs || sr[5 * i + 1] < -hs - MOL_MARGIN) continue;
+        // inside the surface, so the tile centre alone cannot tell the shell from the interior; deepAt, outAt)
+        const sr = this.tileShellRange();
+        if (sr[5 * i] > this.deepAt || sr[5 * i + 1] < this.outAt) continue;
         // front side only (the rest is hidden behind the wall): the eye at most 300 nm behind the local tangent plane
         const toEye = sub(eye, c), o = 5 * i + 2;
         if (sr[o] * toEye[0] + sr[o + 1] * toEye[1] + sr[o + 2] * toEye[2] < -300) continue;
@@ -176,11 +188,23 @@ export class TileManager {
     if (this.clipNow) {                                 // widest margin whose section estimate fits (half a page waste per tile)
       for (const m of CLIP_MS) {
         const c = mkClip(m); let tot = 0;
-        for (const x of cand) tot += this.cost(x.i, c) + PAGE / 2;
+        for (const x of cand) tot += this.cost(x.i, c, 1) + PAGE / 2;     // at full density (thinning comes after)
         this.clipNow = c;
         if (tot <= 0.9 * budget) break;
       }
     }
+    // pool pages the whole view takes at keep fraction th (as the desired-set loop below counts them)
+    const pages = (th: number) => { let p = 0; for (const x of cand) p += Math.ceil(this.cost(x.i, this.clipNow, th) / PAGE); return p * PAGE; };
+    // the view does not fit: the densest THIN level that does. A denser level than the current one is taken only with
+    // 5% to spare (no flip-flop while estimates turn into loaded counts). More tiles than slots: centre first, unthinned
+    let th = 1;
+    if (cand.length <= slots && pages(1) > budget) {
+      th = THIN[THIN.length - 1];
+      for (const f of THIN) if (pages(f) <= budget) { th = f; break; }
+    }
+    if (th > this.thinNow && pages(th) > 0.95 * budget) th = this.thinNow;
+    if (th !== this.thinNow) { this.thinNow = th; this.planeT = now; }   // re-thinning waits for the view to rest, like re-clipping
+    const settled = now - this.planeT > RECLIP_MS;
     const des: number[] = [];
     for (const c of cand) {
       const ni = this.cost(c.i);
@@ -227,6 +251,13 @@ export class TileManager {
       const nrm = ev.domainNormal(x0 + T / 2, y0 + T / 2, z0 + T / 2, 60);
       sr[5 * i] = lo; sr[5 * i + 1] = hi; sr.set(nrm, 5 * i + 2);
     }
+    // the depth field is stored in a narrow band and clamped beyond it (Jurkat v9: +-64 nm), so a tile whose samples
+    // all read the clamp value is deep inside (or far outside) even if the clamp is below SHELL_DEPTH + hs
+    let fmax = -Infinity, fmin = Infinity;
+    for (let i = 0; i < n; i++) { fmax = Math.max(fmax, sr[5 * i + 1]); fmin = Math.min(fmin, sr[5 * i]); }
+    const hs = this.HALF_DIAG / 2;
+    this.deepAt = Math.min(SHELL_DEPTH + hs, fmax - 0.5);
+    this.outAt = Math.max(-hs - MOL_MARGIN, fmin + 0.5);
     return (this.shellRange = sr);
   }
 
@@ -377,7 +408,7 @@ export class TileManager {
     }
     const t: LoadedTile = { idx: i, slot, lo, inst, nInst, pages, basePages, nBase: nFree, lipPages: [], detPages: [], nLip: 0, nDet: 0,
       vb, ib, nIdx, lastUsed: this.frameNo, det: null, detPending: false, underMesh: false, baseFreeMissing,
-      clip: m.clip ?? null, reclip: false, nFull: m.nFull ?? nInst };
+      clip: m.clip ?? null, reclip: false, nFull: m.nFull ?? nInst, thin: m.thin ?? 1 };
     this.loaded.set(i, t); this.state[i] = 2;
     this.setTileBits(this.idx.ix[i], this.idx.iy[i], this.idx.iz[i], 1, 0);
     this.bytesLoaded += m.fetched ?? this.idx.gz[i]; this.tilesLoadedTotal++;
@@ -397,9 +428,9 @@ export class TileManager {
 
   onDetail(m: any) {
     const t = this.loaded.get(m.idx);
-    if (!t) return;
+    const req = t && (t as any)._req;
+    if (!t || !req) return;                            // tile evicted, or replaced by a re-clipped upload meanwhile
     t.detPending = false;
-    const req = (t as any)._req;
     // replace previous detail
     this.lipA.free(t.lipPages); this.clearSPages(this.r.lipPagesBuf, t.lipPages);
     this.freeA.free(t.detPages); this.clearSPages(this.r.freePagesBuf, t.detPages);
@@ -472,7 +503,8 @@ export class TileManager {
     for (const t of this.loaded.values()) { inst += t.nInst; lip += t.nLip; free += t.nBase + t.nDet; mesh += t.nIdx / 3; }
     return { tiles: this.loaded.size, inst, lip, free, mesh, inflight: this.inflight + this.detInflight, desired: this.desired.length,
       ovBlocks: 0, ovSpheres: 0,
-      secWant: this.secWant, secHave: this.secHave, clipMargin: this.clipNow ? this.clipNow.d - this.clipNow.lo : null, instCap: Math.floor(this.r.instPages * PAGE * 0.94) };
+      secWant: this.secWant, secHave: this.secHave, clipMargin: this.clipNow ? this.clipNow.d - this.clipNow.lo : null, instCap: Math.floor(this.r.instPages * PAGE * 0.94),
+      thin: this.thinNow };
   }
   pendingForView() {
     let n = 0; for (const i of this.desired) { if (this.state[i] !== 2) n++; else if (this.clipNow && !this.covered(this.loaded.get(i)!)) n++; }
