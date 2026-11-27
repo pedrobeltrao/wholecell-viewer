@@ -1,0 +1,102 @@
+{
+ "schema": "wholecell.cells/1",
+ "title": "Whole-cell models",
+ "cells": [
+  {
+   "id": "yeast",
+   "name": "Saccharomyces cerevisiae G1 haploid",
+   "organism": {
+    "name": "Saccharomyces cerevisiae",
+    "taxon": 559292,
+    "strain": "BY4741"
+   },
+   "cell_type": "haploid yeast (BY4741), G1",
+   "state": "log phase, YPD",
+   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/yeast/20261123-329246b-s0-v9/",
+   "build": {
+    "build_id": "20261123-329246b-s0-v9",
+    "stamp": "BUILD_STAMP.json",
+    "stamp_sha256": "f983c483c60d020a944db4e7c197e35da4f5b40f160091aa3e11ef572379d9ab",
+    "aliases": []
+   },
+   "files": {
+    "index": "tiles/index.json",
+    "regions": "regions.json",
+    "geometry": "geometry.json",
+    "fields": "geometry_G.bin",
+    "meshes": "organelle_meshes.bin.gz",
+    "bookmarks": "bookmarks.json",
+    "model_doc": "MODEL.md",
+    "features": "features.json",
+    "library": "library/types.json",
+    "types_tiles": "types_tiles.bin",
+    "attribution": "attribution.md"
+   },
+   "thumbnail": "thumb.png",
+   "stats": {
+    "instances": 25844117,
+    "species": 6037,
+    "volume_um3": 31.4
+   },
+   "licence": {
+    "data": "CC-BY-NC-4.0",
+    "attribution": "attribution.md"
+   },
+   "status": "preview",
+   "default_bookmark": "Whole cell",
+   "model_doc": "MODEL.md",
+   "sim_defaults": {}
+  },
+  {
+   "id": "jurkat",
+   "name": "Jurkat E6-1 T cell (jrc_jurkat-1 cell 1)",
+   "organism": {
+    "name": "Homo sapiens",
+    "taxon": 9606
+   },
+   "cell_type": "T lymphocyte (leukaemia line E6-1)",
+   "state": "resting, cell 1 of jrc_jurkat-1",
+   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/jurkat/20261125-37dcd16-s20261115-v10/",
+   "build": {
+    "build_id": "20261125-37dcd16-s20261115-v10",
+    "stamp": "BUILD_STAMP.json",
+    "stamp_sha256": "51822f6766454441623c49dc0ce92acf1a2e8b486d61c543bc42d748ed39b3ea",
+    "aliases": [
+     "v7"
+    ]
+   },
+   "files": {
+    "index": "tiles/index.json",
+    "regions": "regions.json",
+    "geometry": "geometry.json",
+    "fields": "geometry_G.bin",
+    "meshes": "organelle_meshes.bin.gz",
+    "bookmarks": "bookmarks.json",
+    "model_doc": "MODEL.md",
+    "features": "features.json",
+    "library": "library/types.json",
+    "types_tiles": "types_tiles.bin",
+    "attribution": "attribution.md"
+   },
+   "thumbnail": "thumb.png",
+   "stats": {
+    "instances": 874159374,
+    "species": 16149,
+    "volume_um3": 701.2
+   },
+   "licence": {
+    "data": "CC-BY-NC-4.0",
+    "attribution": "attribution.md"
+   },
+   "status": "preview",
+   "default_bookmark": "Whole cell",
+   "model_doc": "MODEL.md",
+   "sim_defaults": {
+    "temperature_K": 310.15,
+    "viscosity_Pa_s": 0.00069,
+    "ionic_strength_M": 0.15
+   }
+  }
+ ],
+ "note": "Data: https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data (CC BY-NC 4.0)."
+}
