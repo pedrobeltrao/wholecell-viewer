@@ -56,11 +56,11 @@
    },
    "cell_type": "T lymphocyte (leukaemia line E6-1)",
    "state": "resting, cell 1 of jrc_jurkat-1",
-   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/jurkat/20261123-faf17e1-s20261115-v9/",
+   "data_base": "https://huggingface.co/datasets/pedrobeltrao/wholecell-viewer-data/resolve/main/jurkat/20261125-37dcd16-s20261115-v10/",
    "build": {
-    "build_id": "20261123-faf17e1-s20261115-v9",
+    "build_id": "20261125-37dcd16-s20261115-v10",
     "stamp": "BUILD_STAMP.json",
-    "stamp_sha256": "8958cd9f68d73f04b21f5f75a2795198002d12eaffc173e352a4bb88d2066f5c",
+    "stamp_sha256": "51822f6766454441623c49dc0ce92acf1a2e8b486d61c543bc42d748ed39b3ea",
     "aliases": [
      "v7"
     ]
@@ -80,7 +80,7 @@
    },
    "thumbnail": "thumb.png",
    "stats": {
-    "instances": 871806162,
+    "instances": 874159374,
     "species": 16149,
     "volume_um3": 701.2
    },
